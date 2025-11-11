@@ -5,6 +5,9 @@ on:
   - cron: '0 * * * *'
   workflow_dispatch:
 
+env:
+  IAR_LMS_BEARER_TOKEN: ${{ secrets.IAR_LMS_BEARER_TOKEN }}
+
 jobs:
   define-matrix:
     runs-on: ubuntu-latest
