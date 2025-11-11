@@ -1,0 +1,6 @@
+**/Debug
+**/settings
+**/log
+**/logs
+**/*.dep
+**/TouchGFX-STM32H735G-DK_OoB
