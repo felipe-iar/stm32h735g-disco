@@ -59,7 +59,7 @@ jobs:
         echo "exit_status=$?" >> $GITHUB_OUTPUT
     - name: Error handling
       env:
-        EC=${{ steps.cstat.outputs.exit_status }}
+        EC: ${{ steps.cstat.outputs.exit_status }}
       run: |
         case $EC in 
           0) echo "returned zero";;
