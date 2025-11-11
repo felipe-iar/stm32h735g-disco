@@ -60,7 +60,7 @@ jobs:
     - name: Error handling
       if: always()
       env:
-        ERROR_CODE: ${{ steps.cstat.outputs.exit_status }}
+        ERROR_CODE: ${{ env.exit_status }}
       run: |
         EC="${{ env.ERROR_CODE }}"
         case "$EC" in
