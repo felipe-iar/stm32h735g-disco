@@ -56,7 +56,7 @@ jobs:
           --db cstat.db \
           --parallel `nproc` \
           commands $(find -iname "cstatcommands.txt")
-        echo ::set-output ec=exit_status::$?
+        echo "exit_status=$?" >> $GITHUB_OUTPUT
     - name: Error handling
       if: steps.cstat.outputs.exit_status != 0 || steps.cstat.outputs.exit_status != 4
       run: exit 1
