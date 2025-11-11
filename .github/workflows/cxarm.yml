@@ -64,5 +64,6 @@ jobs:
       run: |
         EC="${{ env.ERROR_CODE }}"
         case "$EC" in
-        "" | 0 | 4 ) echo "cstat succeeded";;
-        *) echo "unknown error: $EC."; exit 1;
+          "" | 0 | 4 ) echo "cstat succeeded";;
+          *) echo "unknown error: $EC."; exit 1;
+        esac
