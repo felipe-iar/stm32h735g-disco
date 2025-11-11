@@ -52,5 +52,5 @@ jobs:
         icstat \
           --db cstat.db \
           --parallel `nproc` \
-          commands $(find "cstatcommands.txt")
+          commands $(find -iname "cstatcommands.txt")
           
