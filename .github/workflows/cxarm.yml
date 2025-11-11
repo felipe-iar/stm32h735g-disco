@@ -61,8 +61,13 @@ jobs:
       env:
         EC: ${{ steps.cstat.outputs.exit_status }}
       run: |
-        case $EC in 
-          0) echo "returned zero";;
-          4) echo "returned 4";;
-          *) exit 1;;
-        esac
+        if   [ "$EC" -eq 0 ]; then
+          echo "returned zero."
+        elif [ "$EC" -eq 4 ]; then
+          echo "returned four."
+        elif [ "$EC" == "" ]; then
+          echo "returned empty."
+        else
+          echo "unknown error."
+          exit 1
+        fi
