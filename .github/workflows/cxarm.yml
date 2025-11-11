@@ -30,4 +30,5 @@ jobs:
     - run: |
         iarbuild ${{ matrix.project }}/EWARM/${{ matrix.project }}.ewp \
           -${{ matrix.command }} "*" \
+          - log all \
           -parallel `nproc`
