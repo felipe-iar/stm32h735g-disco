@@ -58,7 +58,11 @@ jobs:
           commands $(find -iname "cstatcommands.txt")
         echo "exit_status=$?" >> $GITHUB_OUTPUT
     - name: Error handling
-      if: steps.cstat.outputs.exit_status != 0 || steps.cstat.outputs.exit_status != 4
-      run: exit 1
-
-          
+      env:
+        EC=${{ steps.cstat.outputs.exit_status }}
+      run: |
+        case $EC in 
+          0) echo "returned zero";;
+          4) echo "returned 4";;
+          *) exit 1;;
+        esac
