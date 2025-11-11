@@ -9,7 +9,7 @@ env:
   IAR_LMS_BEARER_TOKEN: ${{ secrets.IAR_LMS_BEARER_TOKEN }}
 
 jobs:
-  build:
+  arm:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -19,14 +19,15 @@ jobs:
         - 9.70.2
         - 9.70.1
         - 9.60.4
+        command:
+        - cstat_analyze
+        - make
     container:
       image: ghcr.io/iarsystems/arm:${{ matrix.tag }}-st
     timeout-minutes: 15
     steps:
     - uses: actions/checkout@v5
-    - name: Build
-      run:  iarbuild ${{ matrix.project }}/EWARM/${{ matrix.project }}.ewp -make "*" -parallel `nproc`
-    - name: Analyze
-      continue-on-error: true
-      run: |
-        iarbuild ${{ matrix.project }}/EWARM/${{ matrix.project }}.ewp -cstat_analyze "*" `nproc`
+    - run: |
+        iarbuild ${{ matrix.project }}/EWARM/${{ matrix.project }}.ewp \
+          -${{ matrix.command }} "*" \
+          -parallel `nproc`
