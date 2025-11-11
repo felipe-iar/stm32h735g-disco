@@ -48,4 +48,5 @@ jobs:
     - run: |
         iarbuild ${{ matrix.project }}/EWARM/${{ matrix.project }}.ewp \
           -cstat_analyze "*" \
+          -log info \
           -parallel `nproc`
