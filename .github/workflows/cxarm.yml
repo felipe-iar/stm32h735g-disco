@@ -55,19 +55,14 @@ jobs:
         icstat \
           --db cstat.db \
           --parallel `nproc` \
-          commands $(find -iname "cstatcommands.txt")
-        echo "exit_status=$?" >> $GITHUB_OUTPUT
+          commands $(find -iname "cstatcommands.txt") \
+          || echo "exit_status=$?" >> $GITHUB_ENV
     - name: Error handling
+      if: always()
       env:
-        EC: ${{ steps.cstat.outputs.exit_status }}
+        ERROR_CODE: ${{ steps.cstat.outputs.exit_status }}
       run: |
-        if   [ "$EC" -eq 0 ]; then
-          echo "returned zero."
-        elif [ "$EC" -eq 4 ]; then
-          echo "returned four."
-        elif [ "$EC" == "" ]; then
-          echo "returned empty."
-        else
-          echo "unknown error."
-          exit 1
-        fi
+        EC="${{ env.ERROR_CODE }}"
+        case "$EC" in
+        "" | 0 | 4 ) echo "cstat succeeded";;
+        *) echo "unknown error: $EC."; exit 1;
