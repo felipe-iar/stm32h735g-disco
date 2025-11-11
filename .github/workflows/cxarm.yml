@@ -20,8 +20,8 @@ jobs:
         - 9.70.1
         - 9.60.4
         command:
-        - cstat_analyze
         - make
+        - cstat_analyze
     container:
       image: ghcr.io/iarsystems/arm:${{ matrix.tag }}-st
     timeout-minutes: 15
